@@ -1,0 +1,49 @@
+{# import template #} 
+{% extends 'layout.jinja' %}
+
+{# title block #}
+{% block title %}
+    Main Page
+{% endblock title %}
+
+{# content block #}
+{% block content %}
+    <h3>Fuel prices</h3>
+    <table>
+        <tr>
+            <th>
+                Navn
+            </th>
+            <th>
+                92
+            </th>
+            <th>
+                95
+            </th>
+            <th>
+                100
+            </th>
+            <th>
+                D
+            </th>
+            <th>
+                D+
+            </th>            
+        </tr>
+        {% for prices in obj %}
+            <tr>
+            <td>{{prices}}</td>
+            <td>{{obj[prices]['92']}}</td>
+            <td>{{obj[prices]['95']}}</td>
+            <td>{{obj[prices]['100']}}</td>
+            <td>{{obj[prices]['d']}}</td>
+            <td>{{obj[prices]['d+']}}</td>
+            </tr>
+        {% endfor %}
+    </table>
+    
+    <div class="updated_time">
+        Updated: 
+        {{last_update}}
+    </div>
+{% endblock content %}

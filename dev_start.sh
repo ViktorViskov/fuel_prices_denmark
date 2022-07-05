@@ -1,0 +1,1 @@
+uvicorn app.app:WEB_SERVER --reload --host 0.0.0.0 --port 9888

@@ -1,0 +1,20 @@
+/* nullifying styles */
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+ul,
+li,
+h3 {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-family: sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: inherit;
+}

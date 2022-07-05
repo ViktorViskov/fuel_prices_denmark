@@ -1,0 +1,20 @@
+table {
+  border-collapse: collapse;
+  margin: auto;
+}
+
+th, td {
+  border: 1px solid black;
+  padding: 5px;
+}
+
+h3 {
+  text-align: center;
+  color: darkblue;
+  padding: 10px 20px;
+}
+
+.updated_time {
+  padding: 20px;
+  text-align: center;
+}
