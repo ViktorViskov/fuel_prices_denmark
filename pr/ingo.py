@@ -20,11 +20,9 @@ class INGO_STATION:
     self.raw = bs.find_all(class_="views-field views-field-price-gross")
 
     #  parsing prices
-    self.b_92 = self.raw[1].text.strip().split(": ")[1]
-    self.b_95 = self.raw[2].text.strip().split(": ")[1]
-    self.b_95p = self.raw[5].text.strip().split(": ")[1]
-    self.b_100 = self.raw[3].text.strip().split(": ")[1]
-    self.d = self.raw[4].text.strip().split(": ")[1]
+    self.b_95 = self.raw[1].text.strip().split(": ")[1]
+    self.b_95p = self.raw[3].text.strip().split(": ")[1]
+    self.d = self.raw[2].text.strip().split(": ")[1]
 
   # method for get prices
   def get_prices(self):
@@ -36,9 +34,9 @@ class INGO_STATION:
       self.parse()
 
       # result
-      return {"92": self.b_92,"95":self.b_95, "95+":self.b_95p, "100":self.b_100, "d":self.d}
+      return {"95":self.b_95, "95+":self.b_95p, "d":self.d}
     
     # catch errors
     except:
-      return {"92":"Err","95":"Err", "95+":"Err", "d":"Err"}
+      return {"95":"Err", "95+":"Err", "d":"Err"}
   
