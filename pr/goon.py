@@ -48,6 +48,11 @@ class GOON_STATION:
     self.b_95 = popen("ssocr -d 5 -T %s/b95.jpg" % (self.tmp_folder)).read().strip()
     self.d = popen("ssocr -d 5 -T %s/d.jpg" % (self.tmp_folder)).read().strip()
 
+    # check for empty and replace with err
+    self.b_92 = "Err" if self.b_92 == "" else self.b_92
+    self.b_95 = "Err" if self.b_95 == "" else self.b_95
+    self.d = "Err" if self.d == "" else self.d
+
 
   # method for get prices
   def get_prices(self):
