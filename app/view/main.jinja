@@ -33,11 +33,11 @@
         {% for prices in obj %}
             <tr>
             <td>{{prices}}</td>
-            <td>{{obj[prices]['92']}}</td>
-            <td>{{obj[prices]['95']}}</td>
-            <td>{{obj[prices]['100']}}</td>
-            <td>{{obj[prices]['d']}}</td>
-            <td>{{obj[prices]['d+']}}</td>
+            <td style="color:{% if '92' in last[prices] and obj[prices]['92'] > last[prices]['92']%} red {% else %} green {% endif %}">{{obj[prices]['92']}}</td>
+            <td style="color:{% if '95' in last[prices] and obj[prices]['95'] > last[prices]['95']%} red {% else %} green {% endif %}">{{obj[prices]['95']}}</td>
+            <td style="color:{% if '100' in last[prices] and obj[prices]['100'] > last[prices]['100']%} red {% else %} green {% endif %}">{{obj[prices]['100']}}</td>
+            <td style="color:{% if 'd' in last[prices] and obj[prices]['d'] > last[prices]['d']%} red {% else %} green {% endif %}">{{obj[prices]['d']}}</td>
+            <td style="color:{% if 'd+' in last[prices] and obj[prices]['d+'] > last[prices]['d+']%} red {% else %} green {% endif %}">{{obj[prices]['d+']}}</td>
             </tr>
         {% endfor %}
     </table>

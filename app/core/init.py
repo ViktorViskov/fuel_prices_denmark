@@ -2,7 +2,7 @@
 from datetime import date, datetime
 import json
 from fastapi import FastAPI
-import threading
+from os.path import exists
 from threading import Thread
 from time import sleep
 from pr.app import load_prices
@@ -15,6 +15,11 @@ def INIT(SERVER: FastAPI):
   SERVER.data = {}
   SERVER.last_update = ""
 
+  # read dump
+  if exists("dump.json"):
+    SERVER.last = json.loads(open("dump.json").read())
+
+
   # crete thread
   SERVER.a = True
   load_thread = Thread(target=load, args=(SERVER,), daemon=True)
@@ -24,8 +29,7 @@ def INIT(SERVER: FastAPI):
 def load(SERVER: FastAPI):
   while True:
     # load and attemp data
-    # SERVER.new = load_prices()
-    SERVER.new = json.loads(open("test.json").read())
+    SERVER.new = load_prices()
 
     # variable for check error in new data
     is_error = False
@@ -38,7 +42,7 @@ def load(SERVER: FastAPI):
           break
 
     if is_error:
-      SERVER.last_update = "ERROR %s ERROR" % datetime.now()
+      SERVER.last_update = "ERROR. Last update was %s" % datetime.now()
       sleep(900)
       continue
 
@@ -46,9 +50,13 @@ def load(SERVER: FastAPI):
 
     # check and update current prices
     if SERVER.new != SERVER.data:
-      SERVER.last = SERVER.data
+      
+      # if data is exist, add to last and update dump file
+      if SERVER.data:
+        SERVER.last = SERVER.data
+        open("dump.json", "w").write(json.dumps(SERVER.last))
+
       SERVER.data = SERVER.new
-      open("dump.json", "w").write(json.dumps(SERVER.last))
 
 
     # time of list update
