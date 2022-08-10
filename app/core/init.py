@@ -14,11 +14,11 @@ def INIT(SERVER: FastAPI):
   SERVER.new = {}
   SERVER.data = {}
   SERVER.last_update = ""
+  SERVER.dump_day = date.today().weekday() # default variable for today
 
   # read dump
   if exists("dump.json"):
     SERVER.last = json.loads(open("dump.json").read())
-
 
   # crete thread
   SERVER.a = True
@@ -48,16 +48,13 @@ def load(SERVER: FastAPI):
 
 
 
-    # check and update current prices
-    if SERVER.new != SERVER.data:
-      
-      # if data is exist, add to last and update dump file
-      if SERVER.data:
-        SERVER.last = SERVER.data
-        open("dump.json", "w").write(json.dumps(SERVER.last))
+    # chech when was last update and if its new day replace last data
+    if SERVER.dump_day != date.today().weekday() and SERVER.data:
+      SERVER.last = SERVER.data
+      open("dump.json", "w").write(json.dumps(SERVER.data))
 
-      SERVER.data = SERVER.new
-
+    # update data
+    SERVER.data = SERVER.new
 
     # time of list update
     SERVER.last_update = datetime.now()
