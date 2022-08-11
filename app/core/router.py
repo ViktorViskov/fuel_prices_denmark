@@ -38,8 +38,8 @@ def ROUTER(SERVER: FastAPI):
                 if price_diff == 0:
                     to_render[item][some_item] = "<span>%s</span>" % ( current_price, )
                 elif price_diff > 0:
-                    to_render[item][some_item] = "<span style=color:red>%s (%s)</span>" % (current_price, price_diff)
+                    to_render[item][some_item] = "<span style=color:red>%s &#8593; (%s)</span>" % (current_price, price_diff)
                 else:
-                    to_render[item][some_item] = "<span style=color:green>%s (%s)</span>" % (current_price, price_diff)
+                    to_render[item][some_item] = "<span style=color:green>%s &#8595; (%s)</span>" % (current_price, price_diff)
 
         return templates.TemplateResponse("main.jinja", {"request": req, "obj": to_render, "last": SERVER.last, "last_update": str(SERVER.last_update).split(".")[0]})
