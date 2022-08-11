@@ -28,24 +28,6 @@ def load(SERVER: FastAPI):
     # load and attemp data
     SERVER.new = load_prices()
 
-    # variable for check error in new data
-    is_error = False
-
-    # check for all data is exist
-    for station in SERVER.new:
-      for fuel_type in SERVER.new[station]:
-        if SERVER.new[station][fuel_type] == "Err":
-          is_error = True
-          break
-
-    print(SERVER.new)
-    if is_error:
-      SERVER.last_update = "ERROR. Last update was %s" % datetime.now()
-      sleep(900)
-      continue
-
-
-
     # chech when was last update and if its new day replace last data
     if SERVER.dump_day != date.today().weekday() and SERVER.data:
       

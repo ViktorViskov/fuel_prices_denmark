@@ -1,13 +1,9 @@
 # libs
-from time import sleep
 from fastapi import FastAPI
 from app.core.router import ROUTER
-from app.core.middleware import MIDDLEWARE
 from app.core.cors import CORS
 from app.core.static import STATIC
 from app.core.init import INIT
-from pr.app import load_prices
-from threading import Thread
 
 # 
 # configs
@@ -24,9 +20,6 @@ class WEB_SERVER(FastAPI):
 
         # enable CORS
         # CORS(self)
-
-        # enable middleware
-        # MIDDLEWARE(self)
 
         # enable routing
         ROUTER(self)

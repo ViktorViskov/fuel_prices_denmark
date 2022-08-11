@@ -21,6 +21,13 @@ def ROUTER(SERVER: FastAPI):
 
             # check for every item
             for some_item in SERVER.data[item]:
+
+                # check for error value and continue to next value
+                if SERVER.data[item][some_item] == "Err":
+                    # show error
+                    to_render[item][some_item] = "<span style=color:orange>%s</span>" % ( SERVER.data[item][some_item] )
+                    continue
+
                 # define current price
                 current_price = SERVER.data[item][some_item].replace(",",".")
 
