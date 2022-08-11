@@ -9,16 +9,13 @@ from pr.app import load_prices
 
 # init function, exec 1 time when server was started
 def INIT(SERVER: FastAPI):
+  
   # create variables
-  SERVER.last = {} # need dump and read from file
+  SERVER.last = {}
   SERVER.new = {}
   SERVER.data = {}
   SERVER.last_update = ""
   SERVER.dump_day = date.today().weekday() # default variable for today
-
-  # read dump
-  if exists("dump.json"):
-    SERVER.last = json.loads(open("dump.json").read())
 
   # crete thread
   SERVER.a = True
@@ -41,6 +38,7 @@ def load(SERVER: FastAPI):
           is_error = True
           break
 
+    print(SERVER.new)
     if is_error:
       SERVER.last_update = "ERROR. Last update was %s" % datetime.now()
       sleep(900)
@@ -50,8 +48,12 @@ def load(SERVER: FastAPI):
 
     # chech when was last update and if its new day replace last data
     if SERVER.dump_day != date.today().weekday() and SERVER.data:
+      
+      # replace data
       SERVER.last = SERVER.data
-      open("dump.json", "w").write(json.dumps(SERVER.data))
+
+      # replace day
+      SERVER.dump_day = date.today().weekday()
 
     # update data
     SERVER.data = SERVER.new
