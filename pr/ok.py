@@ -6,7 +6,7 @@ from bs4 import BeautifulSoup
 # class to parse data from OK station
 class OK_STATION:
   # variables
-  ok = "https://www.ok.dk/offentlig/produkter/braendstof/priser"
+  ok = "https://www.ok.dk/offentlig/produkter/braendstof/priser/vejledende-standerpriser"
 
   # method for load data
   def load(self):
@@ -16,9 +16,9 @@ class OK_STATION:
   def parse(self):
     # load ok prices
     bs = BeautifulSoup(self.response, "html.parser")
-    self.ok_b95 = bs.find(id="509ab0234dc44c35a65e4a4cd007b459").find(class_="flex-table__cell cell--val hidden-xs").text.strip().replace(" kr.", "")
-    self.ok_b100 = bs.find(id="0063174cacf24f988a26840858e67e62").find(class_="flex-table__cell cell--val hidden-xs").text.strip().replace(" kr.", "")
-    self.ok_d = bs.find(id="4db1a089b52f49659bd29362dbc7b9ab").find(class_="flex-table__cell cell--val hidden-xs").text.strip().replace(" kr.", "")
+    self.ok_b95 = bs.find(id="b43a7bead4f7493988aea7f7f98c0772").find(class_="flex-table__cell cell--val hidden-xs").text.strip().replace(" kr.", "")
+    self.ok_b100 = bs.find(id="8016cc45ece542508ab4fb0e109937fe").find(class_="flex-table__cell cell--val hidden-xs").text.strip().replace(" kr.", "")
+    self.ok_d = bs.find(id="c67c3750caac4293b591c23527ab4fc9").find(class_="flex-table__cell cell--val hidden-xs").text.strip().replace(" kr.", "")
 
   # method for get prices
   def get_prices(self):
