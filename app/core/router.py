@@ -32,7 +32,11 @@ def ROUTER(SERVER: FastAPI):
                 current_price = SERVER.data[item][some_item].replace(",",".")
 
                 # check for last is exist and define different between prices
-                price_diff = round(float(current_price) - float(SERVER.last[item][some_item].replace(",",".")), 2) if SERVER.last else 0
+                # error handling
+                try:
+                    price_diff = round(float(current_price) - float(SERVER.last[item][some_item].replace(",",".")), 2) if SERVER.last else 0
+                except:
+                    price_diff = 0.0
 
                 # create element to show
                 if price_diff == 0:
