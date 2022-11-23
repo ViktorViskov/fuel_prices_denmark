@@ -1,49 +1,109 @@
-{# import template #} 
+{# import template #}
 {% extends 'layout.jinja' %}
 
 {# title block #}
 {% block title %}
-    Fuel prices
+Fuel prices
 {% endblock title %}
 
 {# content block #}
 {% block content %}
-    <h3>Fuel prices</h3>
-    <table>
-        <tr>
-            <th>
-                Navn
-            </th>
-            <th>
-                92
-            </th>
-            <th>
-                95
-            </th>
-            <th>
-                100
-            </th>
-            <th>
-                D
-            </th>
-            <th>
-                D+
-            </th>            
-        </tr>
-        {% for prices in obj %}
-            <tr>
-            <td>{{prices}}</td>
-            <td>{{obj[prices]['92'] | safe}}</td>
-            <td>{{obj[prices]['95'] | safe}}</td>
-            <td>{{obj[prices]['100'] | safe}}</td>
-            <td>{{obj[prices]['d'] | safe}}</td>
-            <td>{{obj[prices]['d+'] | safe}}</td>
-            </tr>
-        {% endfor %}
-    </table>
-    
-    <div class="updated_time">
-        Updated: 
-        {{last_update}}
-    </div>
+<h3>Fuel prices</h3>
+<table>
+    <tr>
+        <th>Navn</th>
+        <th>92</th>
+        <th>95</th>
+        <th>100</th>
+        <th>D</th>
+        <th>D+</th>
+    </tr>
+    {% for prices in s:%}
+    {% if prices %}
+    <tr>
+        <td>{{prices.seller}}</td>
+
+        {% if prices.g_92 and prices.g_92_diff%}
+            <td>
+                {{prices.g_92}} 
+                {% if prices.g_92_diff < 0 %}
+                    <span style=color:green> &#8595; {{prices.g_92_diff}}</span>
+                {% else %}
+                    <span style=color:red> &#8593; {{prices.g_92_diff}}</span>
+                {% endif %}
+            </td>
+        {% elif prices.g_92 %}
+            <td>{{prices.g_92}}</td>
+        {% else %}
+            <td></td>
+        {% endif %}
+
+        {% if prices.g_95 and prices.g_95_diff%}
+            <td>
+                {{prices.g_95}} 
+                {% if prices.g_95_diff < 0 %}
+                    <span style=color:green> &#8595; {{prices.g_95_diff}}</span>
+                {% else %}
+                    <span style=color:red> &#8593; {{prices.g_95_diff}}</span>
+                {% endif %}
+            </td>
+        {% elif prices.g_95 %}
+            <td>{{prices.g_95}}</td>
+        {% else %}
+            <td></td>
+        {% endif %}
+
+        {% if prices.g_100 and prices.g_100_diff%}
+            <td>
+                {{prices.g_100}} 
+                {% if prices.g_100_diff < 0 %}
+                    <span style=color:green> &#8595; {{prices.g_100_diff}}</span>
+                {% else %}
+                    <span style=color:red> &#8593; {{prices.g_100_diff}}</span>
+                {% endif %}
+            </td>
+        {% elif prices.g_100 %}
+            <td>{{prices.g_100}}</td>
+        {% else %}
+            <td></td>
+        {% endif %}
+
+        {% if prices.d and prices.d_diff%}
+            <td>
+                {{prices.d}} 
+                    {% if prices.d_diff < 0 %}
+                    <span style=color:green> &#8595; {{prices.d_diff}}</span>
+                {% else %}
+                    <span style=color:red> &#8593; {{prices.d_diff}}</span>
+                {% endif %}
+            </td>
+        {% elif prices.d %}
+            <td>{{prices.d}}</td>
+        {% else %}
+            <td></td>
+        {% endif %}
+
+        {% if prices.d_plus and prices.d_plus_diff%}
+            <td>
+                {{prices.d_plus}}
+                {% if prices.d_plus_diff < 0 %}
+                    <span style=color:green> &#8595; {{prices.d_plus_diff}}</span>
+                {% else %}
+                    <span style=color:red> &#8593; {{prices.d_plus_diff}}</span>
+                {% endif %}
+            </td>
+        {% elif prices.d_plus %}
+            <td>{{prices.d_plus}}</td>
+        {% else %}
+            <td></td>
+        {% endif %}
+    </tr>
+    {% endif %}
+    {% endfor %}
+</table>
+
+<div class="updated_time">
+    Updated:
+    {{last_update_time}}
+</div>
 {% endblock content %}

@@ -1,31 +1,15 @@
-# libs
 from fastapi import FastAPI
-from app.core.router import ROUTER
-from app.core.cors import CORS
-from app.core.static import STATIC
-from app.core.init import INIT
 
-# 
-# configs
-# 
+from app.core.routes import config_routes
+from app.core.static import mount_static_files
+from app.core.workers import start_workers
+from app.core.schemes import Storage
 
-# class for present this web server
-class WEB_SERVER(FastAPI):
+web_server = FastAPI(docs_url=None, redoc_url=None)
+storage = Storage()
 
-    # constructor
-    def __init__(self):
+config_routes(web_server, storage)
+mount_static_files(web_server)
 
-        # use super constuctor
-        super().__init__(docs_url=None, redoc_url=None)
-
-        # enable CORS
-        # CORS(self)
-
-        # enable routing
-        ROUTER(self)
-
-        # enable static files
-        STATIC(self)
-
-        # init function 
-        INIT(self)
+# start thread for load price from different sellers
+start_workers(storage)

@@ -1,1 +1,1 @@
-uvicorn app.app:WEB_SERVER --host 0.0.0.0 --port 9011
+uvicorn app.app:web_server --host 0.0.0.0 --port 9011
