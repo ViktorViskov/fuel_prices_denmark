@@ -21,17 +21,20 @@ class PageModel:
                 yesterday_price = next(
                     (y_price for y_price in yesterday_prices if y_price and current_price.seller == y_price.seller), None)
 
-                if yesterday_price:
-                    if yesterday_price.g_92 and current_price.g_92:
-                        price_with_history.g_92_diff = current_price.g_92 - yesterday_price.g_92
-                    if yesterday_price.g_95 and current_price.g_95:
-                        price_with_history.g_95_diff = current_price.g_95 - yesterday_price.g_95
-                    if yesterday_price.g_100 and current_price.g_100:
-                        price_with_history.g_100_diff = current_price.g_100 - yesterday_price.g_100
-                    if yesterday_price.d and current_price.d:
-                        price_with_history.d_diff = current_price.d - yesterday_price.d
-                    if yesterday_price.d_plus and current_price.d_plus:
-                        price_with_history.d_plus_diff = current_price.d_plus - yesterday_price.d_plus
+                try:
+                    if yesterday_price:
+                        if yesterday_price.g_92 and current_price.g_92:
+                            price_with_history.g_92_diff = round(current_price.g_92 - yesterday_price.g_92, 1)
+                        if yesterday_price.g_95 and current_price.g_95:
+                            price_with_history.g_95_diff = round(current_price.g_95 - yesterday_price.g_95, 1)
+                        if yesterday_price.g_100 and current_price.g_100:
+                            price_with_history.g_100_diff = round(current_price.g_100 - yesterday_price.g_100, 1)
+                        if yesterday_price.d and current_price.d:
+                            price_with_history.d_diff = round(current_price.d - yesterday_price.d, 1)
+                        if yesterday_price.d_plus and current_price.d_plus:
+                            price_with_history.d_plus_diff = round(current_price.d_plus - yesterday_price.d_plus, 1)
+                except Exception:
+                    print("%s: Error with define price different" % (current_price.seller))
                     
                 current_prices_with_history.append(price_with_history)
 
