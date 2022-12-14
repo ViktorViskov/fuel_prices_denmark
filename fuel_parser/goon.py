@@ -67,24 +67,24 @@ def _parse_price_from_images() -> Union[FuelPricesList, None]:
                     (_PATH_TO_TEMP_FOLDER)).read().strip()
         parsed_g92 = float(g92)
     except Exception:
-        print("%s: Can not parse g92 from ssocr")
-        g92 = None
+        print("%s: Can not parse g92 from ssocr" % (_COMPANY_NAME))
+        parsed_g92 = None
 
     try:
         g95 = popen("ssocr -d 5 -T %s/g95.jpg" %
                     (_PATH_TO_TEMP_FOLDER)).read().strip()
         parsed_g95 = float(g95)
     except Exception:
-        print("%s: Can not parse g95 from ssocr")
-        g95 = None
+        print("%s: Can not parse g95 from ssocr" % (_COMPANY_NAME))
+        parsed_g95 = None
 
     try:
         d = popen("ssocr -d 5 -T %s/d.jpg" %
                   (_PATH_TO_TEMP_FOLDER)).read().strip()
         parsed_d = float(d)
     except Exception:
-        print("%s: Can not parse d from ssocr")
-        d = None
+        print("%s: Can not parse d from ssocr" % (_COMPANY_NAME))
+        parsed_d = None
     return FuelPricesList(_COMPANY_NAME, parsed_g92, parsed_g95, None, parsed_d, None)
 
 
